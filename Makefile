@@ -12,7 +12,7 @@
 
 NAME	=	cub3D
 RM		=	rm -f
-CC		=	gcc -Wall -Wextra -Werror -Iincludes -I libs/libft/includes #-g -fsanitize=address
+CC		=	gcc -Wall -Wextra -Werror -Iincludes -I libs/libft/includes -g -fsanitize=address
 MLXFLG	=	-lmlx -Imlx -framework OpenGL -framework AppKit
 LIBFT	=	libs/libft/libft.a
 SRCS	=	srcs/cub3D.c srcs/error_handler.c $(LIBFT)
