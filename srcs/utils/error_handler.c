@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 21:31:06 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/21 02:54:46 by omanar           ###   ########.fr       */
+/*   Updated: 2022/09/06 18:31:21 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,10 @@ void	exit_strerr(char *str, int err)
 	ft_putstr_fd(": ", 2);
 	ft_putendl_fd(strerror(err), 2);
 	exit(EXIT_FAILURE);
+}
+
+void	exit_success(char *str)
+{
+	ft_putendl_fd(str, 1);
+	exit(EXIT_SUCCESS);
 }

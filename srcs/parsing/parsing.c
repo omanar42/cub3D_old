@@ -1,24 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3D.c                                            :+:      :+:    :+:   */
+/*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/15 19:11:31 by omanar            #+#    #+#             */
-/*   Updated: 2022/09/10 22:12:40 by omanar           ###   ########.fr       */
+/*   Created: 2022/09/06 18:33:21 by omanar            #+#    #+#             */
+/*   Updated: 2022/09/06 18:33:31 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3D.h>
 
-int	main(int ac, char **av)
+void	file_checker(char *str)
 {
-	t_cub	*cub;
+	char	*ext;
 
-	if (ac != 2)
-		exit_success("Usage: ./cub3D <map.cub>");
-	cub = (t_cub *)malloc(sizeof(t_cub));
-	parsing(av[1]);
-	return (0);
+	ext = ft_strrchr(str, '.');
+	if (ext == NULL)
+		exit_str("No extension found");
+	else if (ft_strncmp(ext, ".cub\0", 5))
+		exit_error("invalid file extension", ext);
+}
+
+void	parsing(char *str)
+{
+	int		fd;
+
+	file_checker(str);
+	fd = open(str, O_RDONLY);
+	if (fd == -1)
+		exit_strerr(str, errno);
+	close(fd);
+	printf("Everything looks good\n");
 }

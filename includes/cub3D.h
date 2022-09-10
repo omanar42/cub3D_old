@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 19:11:08 by omanar            #+#    #+#             */
-/*   Updated: 2022/08/21 02:58:20 by omanar           ###   ########.fr       */
+/*   Updated: 2022/09/10 22:06:51 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,17 @@
 # include <stdlib.h>
 # include <string.h>
 
+# define ESC_KEY 53
+# define A_KEY 0
+# define D_KEY 2
+# define W_KEY 13
+# define S_KEY 1
+# define LEFT_KEY 123
+# define RIGHT_KEY 124
+# define UP_KEY 126
+# define DOWN_KEY 125
+# define PI 3.14159265359
+
 typedef struct s_data {
 	void	*mlx;
 	void	*win;
@@ -32,11 +43,11 @@ typedef struct s_cub {
 	t_data	*data;
 }	t_cub;
 
-t_cub	g_cub;
-
 void	parsing(char *str);
+void	file_checker(char *str);
 
 void	exit_str(char *str);
+void	exit_success(char *str);
 void	exit_error(char *str, char *err);
 void	exit_strerr(char *str, int err);
 

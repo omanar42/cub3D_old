@@ -12,17 +12,17 @@
 
 NAME	=	cub3D
 RM		=	rm -f
-CC		=	gcc -Wall -Wextra -Werror -Iincludes -I libs/libft/includes -g -fsanitize=address
+CC		=	gcc -Wall -Wextra -Werror -Iincludes -I libs/libft/includes #-g -fsanitize=address
 MLXFLG	=	-lmlx -Imlx -framework OpenGL -framework AppKit
 LIBFT	=	libs/libft/libft.a
-SRCS	=	srcs/cub3D.c srcs/error_handler.c $(LIBFT)
+SRCS	=	srcs/cub3D.c srcs/parsing/parsing.c srcs/utils/error_handler.c $(LIBFT)
 
 define HEADER_M
-   ____      _    _____ ____  
-  / ___|   _| |__|___ /|  _ \\ 
- | |  | | | | '_ \\ |_ \\| | | |
- | |__| |_| | |_) |__) | |_| |
-  \\____\\__,_|_.__/____/|____/ 
+   ______      __   _____ ____ 
+  / ____/_  __/ /_ |__  // __ \\
+ / /   / / / / __ \\ /_ </ / / /
+/ /___/ /_/ / /_/ /__/ / /_/ / 
+\\____/\\__,_/_.___/____/_____/  
 endef
 export HEADER_M
 
@@ -37,7 +37,7 @@ $(LIBFT):
 
 $(NAME): $(SRCS) $(LIBFT)
 	@echo "\033[0;36m</ Compiling Cub3D >\033[0m"
-	@$(CC) -g $(MLXFLG) $(SRCS) -o $(NAME)
+	@$(CC) $(MLXFLG) $(SRCS) -o $(NAME)
 	@echo "\033[1;32mCub3D has been compiled!\033[0m\n"
 
 clean:
