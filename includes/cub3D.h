@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 19:11:08 by omanar            #+#    #+#             */
-/*   Updated: 2022/09/10 22:06:51 by omanar           ###   ########.fr       */
+/*   Updated: 2022/09/10 23:05:11 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@
 # include <stdlib.h>
 # include <string.h>
 
+# define TRUE 1
+# define FALSE 0
+
 # define ESC_KEY 53
 # define A_KEY 0
 # define D_KEY 2
@@ -32,7 +35,12 @@
 # define RIGHT_KEY 124
 # define UP_KEY 126
 # define DOWN_KEY 125
+
 # define PI 3.14159265359
+# define TILE_SIZE 64
+
+# define WINDOW_WIDTH 800
+# define WINDOW_HEIGHT 600
 
 typedef struct s_data {
 	void	*mlx;
