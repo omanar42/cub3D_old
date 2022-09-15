@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 19:11:08 by omanar            #+#    #+#             */
-/*   Updated: 2022/09/10 23:05:11 by omanar           ###   ########.fr       */
+/*   Updated: 2022/09/15 01:42:45 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,36 @@
 # define DOWN_KEY 125
 
 # define PI 3.14159265359
-# define TILE_SIZE 64
+# define TWO_PI 6.28318530718
 
-# define WINDOW_WIDTH 800
-# define WINDOW_HEIGHT 600
+# define TILE_SIZE 64
+# define MAP_NUM_ROWS 13
+# define MAP_NUM_COLS 20
+
+# define WINDOW_WIDTH (MAP_NUM_COLS * TILE_SIZE)
+# define WINDOW_HEIGHT (MAP_NUM_ROWS * TILE_SIZE)
+
+# define FOV_ANGLE (60 * (PI / 180))
+
+# define NUM_RAYS WINDOW_WIDTH
+
+typedef struct s_img {
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}	t_img;
+
+typedef struct s_player {
+	float	x;
+	float	y;
+	float	angle;
+	int		turndir;
+	int		walkdir;
+	float	turnspeed;
+	float	walkspeed;
+}	t_player;
 
 typedef struct s_data {
 	void	*mlx;
@@ -48,7 +74,8 @@ typedef struct s_data {
 }	t_data;
 
 typedef struct s_cub {
-	t_data	*data;
+	t_data		*data;
+	t_player	*player;
 }	t_cub;
 
 void	parsing(char *str);
@@ -58,5 +85,8 @@ void	exit_str(char *str);
 void	exit_success(char *str);
 void	exit_error(char *str, char *err);
 void	exit_strerr(char *str, int err);
+
+void	render_map(t_cub *cub);
+void	render_player(t_cub *cub);
 
 #endif
