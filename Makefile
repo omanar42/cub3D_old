@@ -15,7 +15,8 @@ RM		=	rm -f
 CC		=	gcc -Wall -Wextra -Werror -Iincludes -I libs/libft/includes #-g -fsanitize=address
 MLXFLG	=	-lmlx -framework OpenGL -framework AppKit
 LIBFT	=	libs/libft/libft.a
-SRCS	=	srcs/cub3D.c srcs/parsing/parsing.c srcs/utils/error_handler.c $(LIBFT)
+SRCS	=	srcs/cub3D.c srcs/parsing/parsing.c srcs/utils/error_handler.c $(LIBFT) \
+			srcs/initializing.c srcs/rendering.c srcs/hooks.c srcs/utils.c
 
 define HEADER_M
    ______      __   _____ ____ 

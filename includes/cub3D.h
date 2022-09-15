@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 19:11:08 by omanar            #+#    #+#             */
-/*   Updated: 2022/09/15 01:42:45 by omanar           ###   ########.fr       */
+/*   Updated: 2022/09/15 21:02:42 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,22 @@
 
 # define NUM_RAYS WINDOW_WIDTH
 
+static const int	map[MAP_NUM_ROWS][MAP_NUM_COLS] = {
+{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+{1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1},
+{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1},
+{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1},
+{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1},
+{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1},
+{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
+};
+
 typedef struct s_img {
 	void	*img;
 	char	*addr;
@@ -78,15 +94,34 @@ typedef struct s_cub {
 	t_player	*player;
 }	t_cub;
 
+// ----------------------------  PARSING  ---------------------------- //
 void	parsing(char *str);
 void	file_checker(char *str);
+void	initialize(t_cub *cub);
+void	setup(t_cub *cub);
 
+// -----------------------------  EXITS  ----------------------------- //
 void	exit_str(char *str);
 void	exit_success(char *str);
 void	exit_error(char *str, char *err);
 void	exit_strerr(char *str, int err);
 
+// ---------------------------  RENDERING  --------------------------- //
 void	render_map(t_cub *cub);
 void	render_player(t_cub *cub);
+void	render_line(t_cub *cub, int beginx, int beginy,
+			int endx, int endy, int color);
+
+// -----------------------------  UTILS ------------------------------ //
+int		distroy_event(int keycode, t_cub *cub);
+void	my_pixel_put(t_img *img, int x, int y, int color);
+void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
+
+// -----------------------------  HOOKS ------------------------------ //
+int		key_hook(int keycode, t_cub *cub);
+int		loop_hook(t_cub *cub);
+int		set_defeult(int keycode, t_cub *cub);
+int		is_onempty(t_cub *cub, float x, float y);
+void	move_player(t_cub *cub);
 
 #endif
