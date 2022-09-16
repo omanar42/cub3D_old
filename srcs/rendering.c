@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 20:19:53 by omanar            #+#    #+#             */
-/*   Updated: 2022/09/15 21:04:53 by omanar           ###   ########.fr       */
+/*   Updated: 2022/09/16 01:30:35 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,11 @@ void	render_map(t_cub *cub)
 	img.img = mlx_new_image(cub->data->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel,
 			&img.line_length, &img.endian);
-	j = 0;
-	while (j < MAP_NUM_ROWS)
+	j = -1;
+	while (++j < MAP_NUM_ROWS)
 	{
-		i = 0;
-		while (i < MAP_NUM_COLS)
+		i = -1;
+		while (++i < MAP_NUM_COLS)
 		{
 			tilex = i * TILE_SIZE;
 			tiley = j * TILE_SIZE;
@@ -60,9 +60,7 @@ void	render_map(t_cub *cub)
 				my_pixel_put(&img, tilex, tiley, 0xDFCD8B);
 			else
 				my_pixel_put(&img, tilex, tiley, 0xB1B3B2);
-			i++;
 		}
-		j++;
 	}
 	mlx_put_image_to_window(cub->data->mlx, cub->data->win, img.img, 0, 0);
 }
