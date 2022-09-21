@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 19:11:08 by omanar            #+#    #+#             */
-/*   Updated: 2022/09/15 21:02:42 by omanar           ###   ########.fr       */
+/*   Updated: 2022/09/21 17:35:27 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,12 +84,29 @@ typedef struct s_player {
 	float	walkspeed;
 }	t_player;
 
+typedef struct s_ray
+{
+	float	ray_angle;
+	float	wall_hit_x;
+	float	wall_hit_y;
+	float	distance;
+	int		was_hit_vertical;
+	int		is_ray_facing_up;
+	int		is_ray_facing_down;
+	int		is_ray_facing_left;
+	int		is_ray_facing_right;
+	int		wall_hit_content;
+}	 t_ray;
+
+
 typedef struct s_data {
 	void	*mlx;
 	void	*win;
 }	t_data;
 
 typedef struct s_cub {
+	t_img		*map;
+	t_ray		*rays;
 	t_data		*data;
 	t_player	*player;
 }	t_cub;
@@ -97,8 +114,11 @@ typedef struct s_cub {
 // ----------------------------  PARSING  ---------------------------- //
 void	parsing(char *str);
 void	file_checker(char *str);
+
+// --------------------------  initializing  ------------------------- //
 void	initialize(t_cub *cub);
 void	setup(t_cub *cub);
+void	set_map(t_cub *cub);
 
 // -----------------------------  EXITS  ----------------------------- //
 void	exit_str(char *str);
@@ -108,9 +128,11 @@ void	exit_strerr(char *str, int err);
 
 // ---------------------------  RENDERING  --------------------------- //
 void	render_map(t_cub *cub);
+void	render_rays(t_cub *cub);
 void	render_player(t_cub *cub);
 void	render_line(t_cub *cub, int beginx, int beginy,
 			int endx, int endy, int color);
+void	cast_all_rays(t_cub *cub);
 
 // -----------------------------  UTILS ------------------------------ //
 int		distroy_event(int keycode, t_cub *cub);

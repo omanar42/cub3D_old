@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 20:23:43 by omanar            #+#    #+#             */
-/*   Updated: 2022/09/15 21:03:13 by omanar           ###   ########.fr       */
+/*   Updated: 2022/09/21 17:35:35 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,28 @@ int	loop_hook(t_cub *cub)
 	else
 		frame++;
 	return (0);
+}
+
+void	cast_ray(t_cub *cub, float ray_angle, int ray)
+{
+	(void)ray;
+	render_line(cub, cub->player->x, cub->player->y,
+		cub->player->x + cos(ray_angle) * 80,
+		cub->player->y + sin(ray_angle) * 80, 0x99FF0000);
+}
+
+void	cast_all_rays(t_cub *cub)
+{
+	int		i;
+	float	ray_angle;
+
+	ray_angle = cub->player->angle - (FOV_ANGLE / 2);
+	i = -1;
+	while (++i < WINDOW_WIDTH)
+	{
+		cast_ray(cub, ray_angle, i);
+		ray_angle += FOV_ANGLE / WINDOW_WIDTH;
+	}
 }
 
 int	key_hook(int keycode, t_cub *cub)
@@ -75,6 +97,7 @@ void	move_player(t_cub *cub)
 	float	new_px;
 	float	new_py;
 
+	mlx_clear_window(cub->data->mlx, cub->data->win);
 	cub->player->angle += cub->player->turndir * cub->player->turnspeed;
 	move_step = cub->player->walkdir * cub->player->walkspeed;
 	new_px = cub->player->x + cos(cub->player->angle) * move_step;
@@ -83,8 +106,8 @@ void	move_player(t_cub *cub)
 	{
 		cub->player->x = new_px;
 		cub->player->y = new_py;
-		mlx_clear_window(cub->data->mlx, cub->data->win);
-		render_map(cub);
-		render_player(cub);
 	}
+	render_map(cub);
+	render_rays(cub);
+	render_player(cub);
 }
