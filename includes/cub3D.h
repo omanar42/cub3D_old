@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 19:11:08 by omanar            #+#    #+#             */
-/*   Updated: 2022/09/22 00:33:35 by omanar           ###   ########.fr       */
+/*   Updated: 2022/09/22 16:24:37 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,7 @@ typedef struct s_ray
 	int		is_ray_facing_left;
 	int		is_ray_facing_right;
 	int		wall_hit_content;
-}	 t_ray;
-
+}	t_ray;
 
 typedef struct s_data {
 	void	*mlx;
@@ -116,35 +115,41 @@ typedef struct s_cub {
 void	parsing(char *str);
 void	file_checker(char *str);
 
-// --------------------------  initializing  ------------------------- //
+// --------------------------  INITIALIZING  ------------------------- //
 void	initialize(t_cub *cub);
+void	player_config(t_cub *cub);
+
+// -----------------------------  SETUP  ----------------------------- //
 void	setup(t_cub *cub);
+void	set_hooks(t_cub *cub);
+void	set_cub(t_cub *cub);
+void	display_cub(t_cub *cub);
+
+// ---------------------------  RENDERING  --------------------------- //
+void	render_line(t_cub *cub, int beginx, int beginy,
+			int endx, int endy, int color);
+void	set_all_rays(t_cub *cub);
+void	cast_ray(t_cub *cub, float ray_angle, int ray);
 void	set_map(t_cub *cub);
+void	set_player(t_cub *cub);
+void	render_cub(t_cub *cub);
+void	next_display(t_cub *cub);
+
+// -----------------------------  HOOKS ------------------------------ //
+int		key_press(int keycode, t_cub *cub);
+int		key_release(int keycode, t_cub *cub);
+int		loop_hook(t_cub *cub);
+int		distroy_event(int keycode, t_cub *cub);
+
+// -----------------------------  UTILS ------------------------------ //
+void	my_pixel_put(t_img *img, int x, int y, int color);
+void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
+int		is_onempty(t_cub *cub, float x, float y);
 
 // -----------------------------  EXITS  ----------------------------- //
 void	exit_str(char *str);
 void	exit_success(char *str);
 void	exit_error(char *str, char *err);
 void	exit_strerr(char *str, int err);
-
-// ---------------------------  RENDERING  --------------------------- //
-void	set_cub(t_cub *cub);
-void	render_cub(t_cub *cub);
-void	set_player(t_cub *cub);
-void	render_line(t_cub *cub, int beginx, int beginy,
-			int endx, int endy, int color);
-void	cast_all_rays(t_cub *cub);
-
-// -----------------------------  UTILS ------------------------------ //
-int		distroy_event(int keycode, t_cub *cub);
-void	my_pixel_put(t_img *img, int x, int y, int color);
-void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
-
-// -----------------------------  HOOKS ------------------------------ //
-int		key_hook(int keycode, t_cub *cub);
-int		loop_hook(t_cub *cub);
-int		set_defeult(int keycode, t_cub *cub);
-int		is_onempty(t_cub *cub, float x, float y);
-void	move_player(t_cub *cub);
 
 #endif

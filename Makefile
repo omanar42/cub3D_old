@@ -16,7 +16,7 @@ CC		=	gcc -Wall -Wextra -Werror -Iincludes -I libs/libft/includes #-g -fsanitize
 MLXFLG	=	-lmlx -framework OpenGL -framework AppKit
 LIBFT	=	libs/libft/libft.a
 SRCS	=	srcs/cub3D.c srcs/parsing/parsing.c srcs/utils/error_handler.c $(LIBFT) \
-			srcs/initializing.c srcs/rendering.c srcs/hooks.c srcs/utils.c
+			srcs/initializing.c srcs/rendering.c srcs/rendering2.c srcs/hooks.c srcs/utils.c srcs/setup.c
 
 define HEADER_M
    ______      __   _____ ____ 
