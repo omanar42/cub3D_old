@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 20:23:10 by omanar            #+#    #+#             */
-/*   Updated: 2022/09/21 17:35:22 by omanar           ###   ########.fr       */
+/*   Updated: 2022/09/22 00:33:10 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ void	initialize(t_cub *cub)
 	cub->player = malloc(sizeof(t_player));
 	cub->rays = malloc(sizeof(t_ray) * WINDOW_WIDTH);
 	cub->map = malloc(sizeof(t_img));
-	if (!cub->data || !cub->player || !cub->rays || !cub->map)
+	cub->img = malloc(sizeof(t_img));
+	if (!cub->data || !cub->player || !cub->rays || !cub->map || !cub->img)
 		exit_strerr("malloc", errno);
 	cub->data->mlx = mlx_init();
 	if (!cub->data->mlx)
@@ -36,9 +37,6 @@ void	set_map(t_cub *cub)
 	int		tilex;
 	int		tiley;
 
-	cub->map->img = mlx_new_image(cub->data->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
-	cub->map->addr = mlx_get_data_addr(cub->map->img, &cub->map->bits_per_pixel,
-			&cub->map->line_length, &cub->map->endian);
 	j = -1;
 	while (++j < MAP_NUM_ROWS)
 	{
@@ -48,9 +46,9 @@ void	set_map(t_cub *cub)
 			tilex = i * TILE_SIZE;
 			tiley = j * TILE_SIZE;
 			if (map[j][i] == 1)
-				my_pixel_put(cub->map, tilex, tiley, 0xDFCD8B);
+				my_pixel_put(cub->img, tilex, tiley, 0xDFCD8B);
 			else
-				my_pixel_put(cub->map, tilex, tiley, 0xB1B3B2);
+				my_pixel_put(cub->img, tilex, tiley, 0xB1B3B2);
 		}
 	}
 }
@@ -68,8 +66,9 @@ void	setup(t_cub *cub)
 	mlx_hook(cub->data->win, 3, 0, set_defeult, cub);
 	mlx_hook(cub->data->win, 17, 0, distroy_event, cub);
 	// mlx_loop_hook(cub->data->mlx, loop_hook, cub);
+	set_cub(cub);
 	set_map(cub);
-	render_map(cub);
-	render_rays(cub);
-	render_player(cub);
+	cast_all_rays(cub);
+	set_player(cub);
+	render_cub(cub);
 }

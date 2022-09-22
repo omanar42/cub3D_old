@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 20:23:43 by omanar            #+#    #+#             */
-/*   Updated: 2022/09/21 17:35:35 by omanar           ###   ########.fr       */
+/*   Updated: 2022/09/22 04:40:08 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ void	cast_ray(t_cub *cub, float ray_angle, int ray)
 {
 	(void)ray;
 	render_line(cub, cub->player->x, cub->player->y,
-		cub->player->x + cos(ray_angle) * 80,
-		cub->player->y + sin(ray_angle) * 80, 0x99FF0000);
+		cub->player->x + cos(ray_angle) * 1500,
+		cub->player->y + sin(ray_angle) * 1500, 0xF2EFDC);
 }
 
 void	cast_all_rays(t_cub *cub)
@@ -107,7 +107,8 @@ void	move_player(t_cub *cub)
 		cub->player->x = new_px;
 		cub->player->y = new_py;
 	}
-	render_map(cub);
-	render_rays(cub);
-	render_player(cub);
+	set_map(cub);
+	cast_all_rays(cub);
+	set_player(cub);
+	render_cub(cub);
 }

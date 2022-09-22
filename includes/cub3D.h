@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 19:11:08 by omanar            #+#    #+#             */
-/*   Updated: 2022/09/21 17:35:27 by omanar           ###   ########.fr       */
+/*   Updated: 2022/09/22 00:33:35 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ typedef struct s_data {
 }	t_data;
 
 typedef struct s_cub {
+	t_img		*img;
 	t_img		*map;
 	t_ray		*rays;
 	t_data		*data;
@@ -127,9 +128,9 @@ void	exit_error(char *str, char *err);
 void	exit_strerr(char *str, int err);
 
 // ---------------------------  RENDERING  --------------------------- //
-void	render_map(t_cub *cub);
-void	render_rays(t_cub *cub);
-void	render_player(t_cub *cub);
+void	set_cub(t_cub *cub);
+void	render_cub(t_cub *cub);
+void	set_player(t_cub *cub);
 void	render_line(t_cub *cub, int beginx, int beginy,
 			int endx, int endy, int color);
 void	cast_all_rays(t_cub *cub);
