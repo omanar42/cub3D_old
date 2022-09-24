@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 19:11:08 by omanar            #+#    #+#             */
-/*   Updated: 2022/09/24 21:33:53 by omanar           ###   ########.fr       */
+/*   Updated: 2022/09/24 23:07:14 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ typedef struct s_player {
 
 typedef struct s_ray
 {
-	float	ray_angle;
+	float	angle;
 	float	wall_hit_x;
 	float	wall_hit_y;
 	float	distance;

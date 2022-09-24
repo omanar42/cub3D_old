@@ -6,15 +6,40 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 20:19:53 by omanar            #+#    #+#             */
-/*   Updated: 2022/09/24 22:38:41 by omanar           ###   ########.fr       */
+/*   Updated: 2022/09/24 23:07:07 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3D.h>
 
+float get_distance(t_cub *cub, float ray_angle)
+{
+	int		pixels;
+	double	pixelx;
+	double	pixely;
+	double	deltax;
+	double	deltay;
+
+	deltax = cub->player->x + cos(ray_angle) * 1500 - cub->player->x;
+	deltay = cub->player->y + sin(ray_angle) * 1500 - cub->player->y;
+	pixels = sqrt((deltax * deltax) + (deltay * deltay));
+	deltax /= pixels;
+	deltay /= pixels;
+	pixelx = cub->player->x;
+	pixely = cub->player->y;
+	while (pixels && is_onempty(cub, pixelx, pixely))
+	{
+		pixelx += deltax;
+		pixely += deltay;
+		--pixels;
+	}
+	return (sqrt(pow(pixelx - cub->player->x, 2) + pow(pixely - cub->player->y, 2)));
+}
+
 void	cast_ray(t_cub *cub, float ray_angle, int ray)
 {
-	(void)ray;
+	cub->rays[ray].angle = ray_angle;
+	cub->rays[ray].distance = get_distance(cub, ray_angle);
 	render_line(cub, cub->player->x, cub->player->y,
 		cub->player->x + cos(ray_angle) * 1500,
 		cub->player->y + sin(ray_angle) * 1500, 0xF2EFDC);

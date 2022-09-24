@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:02:57 by omanar            #+#    #+#             */
-/*   Updated: 2022/09/24 22:36:48 by omanar           ###   ########.fr       */
+/*   Updated: 2022/09/24 23:10:46 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,39 @@ void	clear_color_buffer(t_cub *cub)
 		y = 0;
 		while (y < WINDOW_HEIGHT)
 		{
-			if (x == y)
-				my_mlx_pixel_put(cub->cub, x, y, 0x0000EE30);
-			else
-				my_mlx_pixel_put(cub->cub, x, y, 0x00FF0000);
+				my_mlx_pixel_put(cub->cub, x, y, 0xB1B3B2);
 			y++;
 		}
 		x++;
+	}
+}
+
+void	generate_3d_projection(t_cub *cub)
+{
+	int		i;
+	float perp_distance;
+	float distance_proj_plane;
+	float projected_wall_height;
+	int wall_strip_height;
+	int wall_top_pixel;
+	int wall_bottom_pixel;
+
+	i = 0;
+	while (i < WINDOW_WIDTH)
+	{
+		perp_distance = cub->rays[i].distance * cos(cub->rays[i].angle - cub->player->angle);
+		distance_proj_plane = (WINDOW_WIDTH / 2) / tan(FOV_ANGLE / 2);
+		projected_wall_height = (TILE_SIZE / perp_distance) * distance_proj_plane;
+		wall_strip_height = (int)projected_wall_height;
+		wall_top_pixel = (WINDOW_HEIGHT / 2) - (wall_strip_height / 2);
+		if (wall_top_pixel < 0)
+			wall_top_pixel = 0;
+		wall_bottom_pixel = (WINDOW_HEIGHT / 2) + (wall_strip_height / 2);
+		if (wall_bottom_pixel > WINDOW_HEIGHT)
+			wall_bottom_pixel = WINDOW_HEIGHT;
+		for (int j = wall_top_pixel; j < wall_bottom_pixel; j++)
+			my_mlx_pixel_put(cub->cub, i, j, 0xDFCD8B);
+		i++;
 	}
 }
 
@@ -57,6 +83,7 @@ void	display_cub(t_cub *cub)
 	set_all_rays(cub);
 	set_player(cub);
 	clear_color_buffer(cub);
+	generate_3d_projection(cub);
 	render_cub(cub);
 }
 
