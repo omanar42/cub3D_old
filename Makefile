@@ -12,7 +12,8 @@
 
 NAME	=	cub3D
 RM		=	rm -f
-CC		=	gcc -Wall -Wextra -Werror -Iincludes -I libs/libft/includes #-g -fsanitize=address
+CC		=	gcc -Wall -Wextra -Werror -Iincludes -I libs/libft/includes
+DEBUG	=	-g -fsanitize=address
 MLXFLG	=	-lmlx -framework OpenGL -framework AppKit
 LIBFT	=	libs/libft/libft.a
 SRCS	=	srcs/cub3D.c srcs/parsing/parsing.c srcs/utils/error_handler.c $(LIBFT) \
@@ -40,6 +41,14 @@ $(NAME): $(SRCS) $(LIBFT)
 	@echo "\033[0;36m</ Compiling Cub3D >\033[0m"
 	@$(CC) $(MLXFLG) $(SRCS) -o $(NAME)
 	@echo "\033[1;32mCub3D has been compiled!\033[0m\n"
+
+run: all
+	@echo "\033[1;32m</ Running... >\033[0m\n"
+	@./$(NAME) maps/simple.cub
+
+debug: all
+	@$(CC) $(MLXFLG) $(DEBUG) $(SRCS) -o $(NAME)
+	@echo "\033[1;31m</ YOU ARE IN DEBUG MODE! >\033[0m\n"
 
 clean:
 	@make clean -C libs/libft
