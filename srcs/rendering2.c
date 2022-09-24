@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:25:54 by omanar            #+#    #+#             */
-/*   Updated: 2022/09/22 16:27:07 by omanar           ###   ########.fr       */
+/*   Updated: 2022/09/24 21:27:59 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	render_line(t_cub *cub, int beginx, int beginy,
 	pixely = beginy;
 	while (pixels && is_onempty(cub, pixelx, pixely))
 	{
-		my_mlx_pixel_put(cub->img, pixelx, pixely, color);
+		my_mlx_pixel_put(cub->img, pixelx * 0.25, pixely * 0.25, color);
 		pixelx += deltax;
 		pixely += deltay;
 		--pixels;

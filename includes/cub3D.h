@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 19:11:08 by omanar            #+#    #+#             */
-/*   Updated: 2022/09/22 16:24:37 by omanar           ###   ########.fr       */
+/*   Updated: 2022/09/24 21:33:53 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ typedef struct s_data {
 
 typedef struct s_cub {
 	t_img		*img;
-	t_img		*map;
+	t_img		*cub;
 	t_ray		*rays;
 	t_data		*data;
 	t_player	*player;

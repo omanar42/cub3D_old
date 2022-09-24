@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:02:57 by omanar            #+#    #+#             */
-/*   Updated: 2022/09/22 16:03:50 by omanar           ###   ########.fr       */
+/*   Updated: 2022/09/24 22:36:48 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,33 @@ void	set_hooks(t_cub *cub)
 
 void	set_cub(t_cub *cub)
 {
-	cub->img->img = mlx_new_image(cub->data->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
+	cub->img->img = mlx_new_image(cub->data->mlx, WINDOW_WIDTH * 0.25, WINDOW_HEIGHT * 0.25);
 	cub->img->addr = mlx_get_data_addr(cub->img->img, &cub->img->bits_per_pixel,
 			&cub->img->line_length, &cub->img->endian);
+	cub->cub->img = mlx_new_image(cub->data->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
+	cub->cub->addr = mlx_get_data_addr(cub->cub->img, &cub->cub->bits_per_pixel,
+			&cub->cub->line_length, &cub->cub->endian);
+}
+
+void	clear_color_buffer(t_cub *cub)
+{
+	int	x;
+	int	y;
+
+	x = 0;
+	while (x < WINDOW_WIDTH)
+	{
+		y = 0;
+		while (y < WINDOW_HEIGHT)
+		{
+			if (x == y)
+				my_mlx_pixel_put(cub->cub, x, y, 0x0000EE30);
+			else
+				my_mlx_pixel_put(cub->cub, x, y, 0x00FF0000);
+			y++;
+		}
+		x++;
+	}
 }
 
 void	display_cub(t_cub *cub)
@@ -32,6 +56,7 @@ void	display_cub(t_cub *cub)
 	set_map(cub);
 	set_all_rays(cub);
 	set_player(cub);
+	clear_color_buffer(cub);
 	render_cub(cub);
 }
 
