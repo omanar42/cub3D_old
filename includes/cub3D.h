@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 19:11:08 by omanar            #+#    #+#             */
-/*   Updated: 2022/09/24 23:07:14 by omanar           ###   ########.fr       */
+/*   Updated: 2022/09/25 05:05:47 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,9 @@ void	set_map(t_cub *cub);
 void	set_player(t_cub *cub);
 void	render_cub(t_cub *cub);
 void	next_display(t_cub *cub);
+void	generate_3d_projection(t_cub *cub);
+void	rendering_3d(t_cub *cub, int i,
+			int wall_top_pixel, int wall_bottom_pixel);
 
 // -----------------------------  HOOKS ------------------------------ //
 int		key_press(int keycode, t_cub *cub);
@@ -145,6 +148,8 @@ int		distroy_event(int keycode, t_cub *cub);
 void	my_pixel_put(t_img *img, int x, int y, int color);
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
 int		is_onempty(t_cub *cub, float x, float y);
+int		is_his_vertical(float ray_angle);
+float	get_distance(t_cub *cub, float ray_angle);
 
 // -----------------------------  EXITS  ----------------------------- //
 void	exit_str(char *str);

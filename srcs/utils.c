@@ -6,11 +6,17 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 20:25:28 by omanar            #+#    #+#             */
-/*   Updated: 2022/09/24 21:23:47 by omanar           ###   ########.fr       */
+/*   Updated: 2022/09/25 05:04:12 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3D.h>
+
+int	is_his_vertical(float ray_angle)
+{
+	(void)ray_angle;
+	return (1);
+}
 
 int	is_onempty(t_cub *cub, float x, float y)
 {
@@ -24,6 +30,31 @@ int	is_onempty(t_cub *cub, float x, float y)
 	map_grid_index_x = floor(x / TILE_SIZE);
 	map_grid_index_y = floor(y / TILE_SIZE);
 	return (map[map_grid_index_y][map_grid_index_x] == 0);
+}
+
+float	get_distance(t_cub *cub, float ray_angle)
+{
+	int		pixels;
+	double	pixelx;
+	double	pixely;
+	double	deltax;
+	double	deltay;
+
+	deltax = cub->player->x + cos(ray_angle) * 1500 - cub->player->x;
+	deltay = cub->player->y + sin(ray_angle) * 1500 - cub->player->y;
+	pixels = sqrt((deltax * deltax) + (deltay * deltay));
+	deltax /= pixels;
+	deltay /= pixels;
+	pixelx = cub->player->x;
+	pixely = cub->player->y;
+	while (pixels && is_onempty(cub, pixelx, pixely))
+	{
+		pixelx += deltax;
+		pixely += deltay;
+		--pixels;
+	}
+	return (sqrt(pow(pixelx - cub->player->x, 2)
+			+ pow(pixely - cub->player->y, 2)));
 }
 
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
