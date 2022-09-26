@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:25:54 by omanar            #+#    #+#             */
-/*   Updated: 2022/09/25 05:04:40 by omanar           ###   ########.fr       */
+/*   Updated: 2022/09/26 20:23:24 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,19 @@ void	next_display(t_cub *cub)
 }
 
 void	rendering_3d(t_cub *cub, int i,
-	int wall_top_pixel, int wall_bottom_pixel)
+	int wall_strip_height)
 {
 	int	j;
+	int	wall_top_pixel;
+	int	wall_bottom_pixel;
 
 	j = 0;
+	wall_top_pixel = (WINDOW_HEIGHT / 2) - (wall_strip_height / 2);
+	if (wall_top_pixel < 0)
+		wall_top_pixel = 0;
+	wall_bottom_pixel = (WINDOW_HEIGHT / 2) + (wall_strip_height / 2);
+	if (wall_bottom_pixel > WINDOW_HEIGHT)
+		wall_bottom_pixel = WINDOW_HEIGHT;
 	while (j < wall_top_pixel)
 		my_mlx_pixel_put(cub->cub, i, j++, 0x67C1CA);
 	j = wall_top_pixel;
@@ -80,28 +88,20 @@ void	rendering_3d(t_cub *cub, int i,
 void	generate_3d_projection(t_cub *cub)
 {
 	int		i;
-	float	perp_distance;
+	float	correct_distance;
 	float	distance_proj_plane;
-	float	projected_wall_height;
+	float	projection_wall_height;
 	int		wall_strip_height;
-	int		wall_top_pixel;
-	int		wall_bottom_pixel;
 
 	i = -1;
 	while (++i < WINDOW_WIDTH)
 	{
-		perp_distance = cub->rays[i].distance
+		correct_distance = cub->rays[i].distance
 			* cos(cub->rays[i].angle - cub->player->angle);
 		distance_proj_plane = (WINDOW_WIDTH / 2) / tan(FOV_ANGLE / 2);
-		projected_wall_height = (TILE_SIZE / perp_distance)
+		projection_wall_height = (TILE_SIZE / correct_distance)
 			* distance_proj_plane;
-		wall_strip_height = (int)projected_wall_height;
-		wall_top_pixel = (WINDOW_HEIGHT / 2) - (wall_strip_height / 2);
-		if (wall_top_pixel < 0)
-			wall_top_pixel = 0;
-		wall_bottom_pixel = (WINDOW_HEIGHT / 2) + (wall_strip_height / 2);
-		if (wall_bottom_pixel > WINDOW_HEIGHT)
-			wall_bottom_pixel = WINDOW_HEIGHT;
-		rendering_3d(cub, i, wall_top_pixel, wall_bottom_pixel);
+		wall_strip_height = (int)projection_wall_height;
+		rendering_3d(cub, i, wall_strip_height);
 	}
 }

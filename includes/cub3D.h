@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 19:11:08 by omanar            #+#    #+#             */
-/*   Updated: 2022/09/25 05:05:47 by omanar           ###   ########.fr       */
+/*   Updated: 2022/09/26 20:23:34 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,7 @@ void	render_cub(t_cub *cub);
 void	next_display(t_cub *cub);
 void	generate_3d_projection(t_cub *cub);
 void	rendering_3d(t_cub *cub, int i,
-			int wall_top_pixel, int wall_bottom_pixel);
+			int wall_strip_height);
 
 // -----------------------------  HOOKS ------------------------------ //
 int		key_press(int keycode, t_cub *cub);
