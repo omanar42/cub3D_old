@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 20:23:10 by omanar            #+#    #+#             */
-/*   Updated: 2022/09/24 21:34:10 by omanar           ###   ########.fr       */
+/*   Updated: 2022/09/27 16:21:27 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	player_config(t_cub *cub)
 	cub->player->angle = PI / 2;
 	cub->player->turndir = 0;
 	cub->player->walkdir = 0;
+	cub->player->movedir = 0;
 	cub->player->turnspeed = 5 * (PI / 180);
 	cub->player->walkspeed = 10;
 }

@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 19:11:08 by omanar            #+#    #+#             */
-/*   Updated: 2022/09/26 20:23:34 by omanar           ###   ########.fr       */
+/*   Updated: 2022/09/27 16:21:16 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ typedef struct s_player {
 	float	angle;
 	int		turndir;
 	int		walkdir;
+	int		movedir;
 	float	turnspeed;
 	float	walkspeed;
 }	t_player;

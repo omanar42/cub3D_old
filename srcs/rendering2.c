@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:25:54 by omanar            #+#    #+#             */
-/*   Updated: 2022/09/26 20:23:24 by omanar           ###   ########.fr       */
+/*   Updated: 2022/09/27 16:32:51 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,24 @@ void	render_line(t_cub *cub, int beginx, int beginy,
 void	next_display(t_cub *cub)
 {
 	float	move_step;
+	float	walk_step;
 	float	new_px;
 	float	new_py;
 
 	mlx_clear_window(cub->data->mlx, cub->data->win);
 	cub->player->angle += cub->player->turndir * cub->player->turnspeed;
-	move_step = cub->player->walkdir * cub->player->walkspeed;
-	new_px = cub->player->x + cos(cub->player->angle) * move_step;
-	new_py = cub->player->y + sin(cub->player->angle) * move_step;
+	walk_step = cub->player->walkdir * cub->player->walkspeed;
+	move_step = cub->player->movedir * cub->player->walkspeed;
+	if (cub->player->movedir != 0)
+	{
+		new_px = cub->player->x + cos(cub->player->angle + PI / 2) * move_step;
+		new_py = cub->player->y + sin(cub->player->angle + PI / 2) * move_step;
+	}
+	else
+	{
+		new_px = cub->player->x + cos(cub->player->angle) * walk_step;
+		new_py = cub->player->y + sin(cub->player->angle) * walk_step;
+	}
 	if (is_onempty(cub, new_px, new_py))
 	{
 		cub->player->x = new_px;
