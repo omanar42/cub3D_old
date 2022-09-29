@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 20:25:28 by omanar            #+#    #+#             */
-/*   Updated: 2022/09/29 03:41:36 by omanar           ###   ########.fr       */
+/*   Updated: 2022/09/29 16:25:02 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,15 @@ float	get_distance(t_cub *cub, float ray_angle)
 	deltay /= pixels;
 	pixelx = cub->player->x;
 	pixely = cub->player->y;
-	while (pixels && is_onempty(pixelx, pixely, 0, 0))
+	while (pixels && is_onempty(pixelx, pixely, deltax, deltay))
 	{
 		pixelx += deltax;
 		pixely += deltay;
 		--pixels;
 	}
+	if (sqrt(pow(pixelx - cub->player->x, 2)
+			+ pow(pixely - cub->player->y, 2)) < 1)
+		return (1);
 	return (sqrt(pow(pixelx - cub->player->x, 2)
 			+ pow(pixely - cub->player->y, 2)));
 }
