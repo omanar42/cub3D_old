@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:25:54 by omanar            #+#    #+#             */
-/*   Updated: 2022/09/27 16:32:51 by omanar           ###   ########.fr       */
+/*   Updated: 2022/09/29 03:49:03 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	render_line(t_cub *cub, int beginx, int beginy,
 	deltay /= pixels;
 	pixelx = beginx;
 	pixely = beginy;
-	while (pixels && is_onempty(cub, pixelx, pixely))
+	while (pixels && is_onempty(pixelx, pixely, deltax, deltay))
 	{
 		my_mlx_pixel_put(cub->img, pixelx * 0.25, pixely * 0.25, color);
 		pixelx += deltax;
@@ -44,7 +44,6 @@ void	next_display(t_cub *cub)
 	float	new_px;
 	float	new_py;
 
-	mlx_clear_window(cub->data->mlx, cub->data->win);
 	cub->player->angle += cub->player->turndir * cub->player->turnspeed;
 	walk_step = cub->player->walkdir * cub->player->walkspeed;
 	move_step = cub->player->movedir * cub->player->walkspeed;
@@ -58,7 +57,8 @@ void	next_display(t_cub *cub)
 		new_px = cub->player->x + cos(cub->player->angle) * walk_step;
 		new_py = cub->player->y + sin(cub->player->angle) * walk_step;
 	}
-	if (is_onempty(cub, new_px, new_py))
+	if (is_onempty(new_px, new_py,
+			new_px - cub->player->x, new_py - cub->player->y))
 	{
 		cub->player->x = new_px;
 		cub->player->y = new_py;

@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 20:25:28 by omanar            #+#    #+#             */
-/*   Updated: 2022/09/25 05:04:12 by omanar           ###   ########.fr       */
+/*   Updated: 2022/09/29 03:41:36 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,25 @@ int	is_his_vertical(float ray_angle)
 	return (1);
 }
 
-int	is_onempty(t_cub *cub, float x, float y)
+int	is_onempty(float x, float y, float dx, float dy)
 {
 	int	map_grid_index_x;
 	int	map_grid_index_y;
+	int	map_grid_index_dx;
+	int	map_grid_index_dy;
 
-	(void)cub;
 	if (x < 0 || x > (MAP_NUM_COLS * TILE_SIZE)
 		|| y < 0 || y > (MAP_NUM_ROWS * TILE_SIZE))
 		return (FALSE);
 	map_grid_index_x = floor(x / TILE_SIZE);
 	map_grid_index_y = floor(y / TILE_SIZE);
-	return (map[map_grid_index_y][map_grid_index_x] == 0);
+	map_grid_index_dx = floor((x + dx) / TILE_SIZE);
+	map_grid_index_dy = floor((y + dy) / TILE_SIZE);
+	if (map[map_grid_index_y][map_grid_index_x] == 0
+		&& map[map_grid_index_dy][map_grid_index_x] == 0
+		&& map[map_grid_index_y][map_grid_index_dx] == 0)
+		return (TRUE);
+	return (FALSE);
 }
 
 float	get_distance(t_cub *cub, float ray_angle)
@@ -47,7 +54,7 @@ float	get_distance(t_cub *cub, float ray_angle)
 	deltay /= pixels;
 	pixelx = cub->player->x;
 	pixely = cub->player->y;
-	while (pixels && is_onempty(cub, pixelx, pixely))
+	while (pixels && is_onempty(pixelx, pixely, 0, 0))
 	{
 		pixelx += deltax;
 		pixely += deltay;
