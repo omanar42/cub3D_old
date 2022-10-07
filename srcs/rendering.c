@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 20:19:53 by omanar            #+#    #+#             */
-/*   Updated: 2022/10/07 13:00:26 by omanar           ###   ########.fr       */
+/*   Updated: 2022/10/07 13:04:54 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ void	set_player(t_cub *cub)
 
 void	render_cub(t_cub *cub)
 {
+	mlx_clear_window(cub->data->mlx, cub->data->win);
 	mlx_put_image_to_window(cub->data->mlx,
 		cub->data->win, cub->cub->img, 0, 0);
 	mlx_put_image_to_window(cub->data->mlx,

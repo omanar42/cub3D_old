@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:25:54 by omanar            #+#    #+#             */
-/*   Updated: 2022/10/07 13:00:22 by omanar           ###   ########.fr       */
+/*   Updated: 2022/10/07 13:07:43 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ void	next_display(t_cub *cub)
 	float	new_px;
 	float	new_py;
 
-	mlx_clear_window(cub->data->mlx, cub->data->win);
 	cub->player->angle += cub->player->turndir * cub->player->turnspeed;
 	walk_step = cub->player->walkdir * cub->player->walkspeed;
 	move_step = cub->player->movedir * cub->player->walkspeed;
