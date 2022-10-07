@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 20:19:53 by omanar            #+#    #+#             */
-/*   Updated: 2022/09/29 16:37:04 by omanar           ###   ########.fr       */
+/*   Updated: 2022/10/07 13:00:26 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	cast_ray(t_cub *cub, float ray_angle, int ray)
 {
 	cub->rays[ray].angle = ray_angle;
 	cub->rays[ray].distance = get_distance(cub, ray_angle);
+	if (cub->rays[ray].distance == 0)
+		cub->rays[ray].distance = 0.0001;
 	cub->rays[ray].was_hit_vertical = is_his_vertical(ray_angle);
 	render_line(cub, cub->player->x, cub->player->y,
 		cub->player->x + cos(ray_angle) * 1500,
@@ -70,7 +72,6 @@ void	set_player(t_cub *cub)
 
 void	render_cub(t_cub *cub)
 {
-	mlx_clear_window(cub->data->mlx, cub->data->win);
 	mlx_put_image_to_window(cub->data->mlx,
 		cub->data->win, cub->cub->img, 0, 0);
 	mlx_put_image_to_window(cub->data->mlx,

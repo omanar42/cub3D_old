@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 20:25:28 by omanar            #+#    #+#             */
-/*   Updated: 2022/09/29 16:25:02 by omanar           ###   ########.fr       */
+/*   Updated: 2022/10/07 13:00:18 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ int	is_onempty(float x, float y, float dx, float dy)
 	map_grid_index_dx = floor((x + dx) / TILE_SIZE);
 	map_grid_index_dy = floor((y + dy) / TILE_SIZE);
 	if (map[map_grid_index_y][map_grid_index_x] == 0
-		&& map[map_grid_index_dy][map_grid_index_x] == 0
-		&& map[map_grid_index_y][map_grid_index_dx] == 0)
+		&& map[map_grid_index_y][map_grid_index_dx] == 0
+		&& map[map_grid_index_dy][map_grid_index_x] == 0)
 		return (TRUE);
 	return (FALSE);
 }
@@ -60,9 +60,6 @@ float	get_distance(t_cub *cub, float ray_angle)
 		pixely += deltay;
 		--pixels;
 	}
-	if (sqrt(pow(pixelx - cub->player->x, 2)
-			+ pow(pixely - cub->player->y, 2)) < 1)
-		return (1);
 	return (sqrt(pow(pixelx - cub->player->x, 2)
 			+ pow(pixely - cub->player->y, 2)));
 }
