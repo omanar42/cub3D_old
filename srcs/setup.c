@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:02:57 by omanar            #+#    #+#             */
-/*   Updated: 2022/09/29 03:47:53 by omanar           ###   ########.fr       */
+/*   Updated: 2022/10/09 13:55:48 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,19 @@
 
 void	set_hooks(t_cub *cub)
 {
-	mlx_hook(cub->data->win, 2, 0, key_press, cub);
-	mlx_hook(cub->data->win, 3, 0, key_release, cub);
-	mlx_hook(cub->data->win, 17, 0, distroy_event, cub);
-	// mlx_loop_hook(cub->data->mlx, loop_hook, cub);
+	mlx_hook(cub->win, 2, 0, key_press, cub);
+	mlx_hook(cub->win, 3, 0, key_release, cub);
+	mlx_hook(cub->win, 17, 0, distroy_event, cub);
+	// mlx_loop_hook(cub->mlx, loop_hook, cub);
 }
 
 void	set_cub(t_cub *cub)
 {
-	cub->img->img = mlx_new_image(cub->data->mlx, WINDOW_WIDTH
+	cub->img->img = mlx_new_image(cub->mlx, WINDOW_WIDTH
 			* 0.25, WINDOW_HEIGHT * 0.25);
 	cub->img->addr = mlx_get_data_addr(cub->img->img, &cub->img->bits_per_pixel,
 			&cub->img->line_length, &cub->img->endian);
-	cub->cub->img = mlx_new_image(cub->data->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
+	cub->cub->img = mlx_new_image(cub->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
 	cub->cub->addr = mlx_get_data_addr(cub->cub->img, &cub->cub->bits_per_pixel,
 			&cub->cub->line_length, &cub->cub->endian);
 }

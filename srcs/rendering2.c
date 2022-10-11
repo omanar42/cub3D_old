@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:25:54 by omanar            #+#    #+#             */
-/*   Updated: 2022/10/07 13:07:43 by omanar           ###   ########.fr       */
+/*   Updated: 2022/10/11 19:25:00 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ void	rendering_3d(t_cub *cub, int i,
 	if (wall_bottom_pixel > WINDOW_HEIGHT)
 		wall_bottom_pixel = WINDOW_HEIGHT;
 	while (j < wall_top_pixel)
-		my_mlx_pixel_put(cub->cub, i, j++, 0x67C1CA);
+		my_mlx_pixel_put(cub->cub, i, j++, cub->data->ceiling);
 	j = wall_top_pixel;
 	while (j < wall_bottom_pixel)
 	{
@@ -118,7 +118,7 @@ void	rendering_3d(t_cub *cub, int i,
 	}
 	j = wall_bottom_pixel;
 	while (j < WINDOW_HEIGHT)
-		my_mlx_pixel_put(cub->cub, i, j++, 0xB1B3B2);
+		my_mlx_pixel_put(cub->cub, i, j++, cub->data->floor);
 }
 
 void	generate_3d_projection(t_cub *cub)

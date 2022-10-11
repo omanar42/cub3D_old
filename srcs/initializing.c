@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 20:23:10 by omanar            #+#    #+#             */
-/*   Updated: 2022/09/29 03:55:27 by omanar           ###   ########.fr       */
+/*   Updated: 2022/10/11 17:03:36 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,25 @@
 
 void	initialize(t_cub *cub)
 {
+	if (!cub)
+		exit_strerr("malloc", errno);
 	cub->img = malloc(sizeof(t_img));
 	cub->cub = malloc(sizeof(t_img));
 	cub->data = malloc(sizeof(t_data));
 	cub->player = malloc(sizeof(t_player));
 	cub->rays = malloc(sizeof(t_ray) * WINDOW_WIDTH);
+	cub->data->map = ft_calloc(1, sizeof(char *));
 	if (!cub->img || !cub->cub || !cub->data || !cub->player || !cub->rays)
 		exit_strerr("malloc", errno);
-	cub->data->mlx = mlx_init();
-	if (!cub->data->mlx)
-		exit_error("mlx_init", "Error initializing MLX");
-	cub->data->win = mlx_new_window(cub->data->mlx,
-			WINDOW_WIDTH, WINDOW_HEIGHT, "cub3D");
-	if (!cub->data->win)
-		exit_error("mlx_new_window", "Error creating MLX window");
+	cub->data->no = NULL;
+	cub->data->so = NULL;
+	cub->data->we = NULL;
+	cub->data->ea = NULL;
+	cub->data->floor = -1;
+	cub->data->ceiling = -1;
+	cub->data->width = 0;
+	cub->data->height = 0;
+	cub->data->map[0] = NULL;
 }
 
 void	player_config(t_cub *cub)

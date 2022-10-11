@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 19:11:08 by omanar            #+#    #+#             */
-/*   Updated: 2022/09/29 16:23:42 by omanar           ###   ########.fr       */
+/*   Updated: 2022/10/11 16:54:40 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <string.h>
+# include <get_next_line.h>
 
 # define TRUE 1
 # define FALSE 0
@@ -66,6 +67,17 @@ static const int	map[MAP_NUM_ROWS][MAP_NUM_COLS] = {
 {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
 };
 
+enum {
+	TOKEN_NO,
+	TOKEN_SO,
+	TOKEN_WE,
+	TOKEN_EA,
+	TOKEN_F,
+	TOKEN_C,
+	TOKEN_MAP,
+	TOKEN_ERROR,
+}	e_type;
+
 typedef struct s_img {
 	void	*img;
 	char	*addr;
@@ -100,11 +112,20 @@ typedef struct s_ray
 }	t_ray;
 
 typedef struct s_data {
-	void	*mlx;
-	void	*win;
+	char	*no;
+	char	*so;
+	char	*we;
+	char	*ea;
+	int		floor;
+	int		ceiling;
+	int		width;
+	int		height;
+	char	**map;
 }	t_data;
 
 typedef struct s_cub {
+	void		*mlx;
+	void		*win;
 	t_img		*img;
 	t_img		*cub;
 	t_ray		*rays;
@@ -113,8 +134,21 @@ typedef struct s_cub {
 }	t_cub;
 
 // ----------------------------  PARSING  ---------------------------- //
-void	parsing(char *str);
+void	parsing(t_cub *cub, char *str);
 void	file_checker(char *str);
+void	file_parsing(t_cub *cub, int fd);
+int		line_parsing(t_cub *cub, char *line);
+void	color_parsing(t_cub *cub, char *line, int token, int i);
+void	texture_parsing(t_cub *cub, char *line, int token, int i);
+void	map_parsing(t_cub *cub, char *line, int fd);
+
+// --------------------------  PARSING UTILS ------------------------- //
+void	skipe_spaces(char *s, int *i);
+int		is_map(char *line);
+int		check_name(char *name);
+int		argslen(char **args);
+void	free_loop(char **args);
+char	**advanced_add(char **strs, char *arg);
 
 // --------------------------  INITIALIZING  ------------------------- //
 void	initialize(t_cub *cub);

@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 18:33:21 by omanar            #+#    #+#             */
-/*   Updated: 2022/09/14 22:02:40 by omanar           ###   ########.fr       */
+/*   Updated: 2022/10/11 19:23:28 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,30 @@ void	file_checker(char *str)
 		exit_error("invalid file extension", ext);
 }
 
-void	parsing(char *str)
+void	file_parsing(t_cub *cub, int fd)
+{
+	int		i;
+	char	*line;
+
+	i = 0;
+	line = get_next_line(fd);
+	while (line)
+	{
+		if (line[0] != '\n')
+		{
+			if (line_parsing(cub, line))
+			{
+				map_parsing(cub, line, fd);
+				return ;
+			}
+		}
+		free(line);
+		line = get_next_line(fd);
+		i++;
+	}
+}
+
+void	parsing(t_cub *cub, char *str)
 {
 	int		fd;
 
@@ -31,6 +54,15 @@ void	parsing(char *str)
 	fd = open(str, O_RDONLY);
 	if (fd == -1)
 		exit_strerr(str, errno);
-	close(fd);
-	printf("Everything looks good\n");
+	initialize(cub);
+	file_parsing(cub, fd);
+	// printf("SO = (%s)\nNO = (%s)\nWE = (%s)\nEA = (%s)\n", cub->data->so, cub->data->no, cub->data->we, cub->data->ea);
+	// printf("Floor = (%d)\ncelling = (%d)\n", cub->data->floor, cub->data->ceiling);
+
+	// int i = 0;
+	// while (cub->data->map[i])
+	// {
+	// 	printf("%s\n", cub->data->map[i]);
+	// 	i++;
+	// }
 }
