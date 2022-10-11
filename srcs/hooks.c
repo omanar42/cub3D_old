@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 20:23:43 by omanar            #+#    #+#             */
-/*   Updated: 2022/09/27 16:21:42 by omanar           ###   ########.fr       */
+/*   Updated: 2022/10/12 00:24:25 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int	key_press(int keycode, t_cub *cub)
 	else if (keycode == LEFT_KEY)
 		cub->player->turndir = -1;
 	next_display(cub);
+	display_cub(cub);
 	return (0);
 }
 

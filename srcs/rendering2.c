@@ -6,14 +6,13 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:25:54 by omanar            #+#    #+#             */
-/*   Updated: 2022/10/11 23:39:27 by omanar           ###   ########.fr       */
+/*   Updated: 2022/10/12 00:31:50 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3D.h>
 
-void	render_line(t_cub *cub, int beginx, int beginy,
-					int endx, int endy, int color)
+void	render_line(t_cub *cub, int endx, int endy, int color)
 {
 	int		pixels;
 	double	pixelx;
@@ -21,24 +20,23 @@ void	render_line(t_cub *cub, int beginx, int beginy,
 	double	deltax;
 	double	deltay;
 
-	deltax = endx - beginx;
-	deltay = endy - beginy;
+	deltax = endx - cub->player->x;
+	deltay = endy - cub->player->y;
 	pixels = sqrt((deltax * deltax) + (deltay * deltay));
 	deltax /= pixels;
 	deltay /= pixels;
-	pixelx = beginx;
-	pixely = beginy;
+	pixelx = cub->player->x;
+	pixely = cub->player->y;
 	while (pixels && is_onempty(cub, pixelx, pixely, deltax, deltay))
 	{
-		my_mlx_pixel_put(cub->img, pixelx * 0.2, pixely * 0.2, color);
+		my_mlx_pixel_put(cub->img, pixelx * 0.17, pixely * 0.17, color);
 		pixelx += deltax;
 		pixely += deltay;
 		--pixels;
 	}
 }
 
-int	player_can_move(t_cub *cub, int beginx, int beginy,
-					int endx, int endy)
+int	player_can_move(t_cub *cub, int endx, int endy)
 {
 	int		pixels;
 	double	pixelx;
@@ -46,13 +44,13 @@ int	player_can_move(t_cub *cub, int beginx, int beginy,
 	double	deltax;
 	double	deltay;
 
-	deltax = endx - beginx;
-	deltay = endy - beginy;
+	deltax = endx - cub->player->x;
+	deltay = endy - cub->player->y;
 	pixels = sqrt((deltax * deltax) + (deltay * deltay));
 	deltax /= pixels;
 	deltay /= pixels;
-	pixelx = beginx;
-	pixely = beginy;
+	pixelx = cub->player->x;
+	pixely = cub->player->y;
 	while (pixels && is_onempty(cub, pixelx, pixely, deltax, deltay))
 	{
 		pixelx += deltax;
@@ -76,20 +74,21 @@ void	next_display(t_cub *cub)
 	move_step = cub->player->movedir * cub->player->walkspeed;
 	if (cub->player->movedir != 0)
 	{
-		new_px = cub->player->x + cos(cub->player->angle + M_PI / 2) * move_step;
-		new_py = cub->player->y + sin(cub->player->angle + M_PI / 2) * move_step;
+		new_px = cub->player->x
+			+ cos(cub->player->angle + M_PI / 2) * move_step;
+		new_py = cub->player->y
+			+ sin(cub->player->angle + M_PI / 2) * move_step;
 	}
 	else
 	{
 		new_px = cub->player->x + cos(cub->player->angle) * walk_step;
 		new_py = cub->player->y + sin(cub->player->angle) * walk_step;
 	}
-	if (player_can_move(cub, cub->player->x, cub->player->y, new_px, new_py))
+	if (player_can_move(cub, new_px, new_py))
 	{
 		cub->player->x = new_px;
 		cub->player->y = new_py;
 	}
-	display_cub(cub);
 }
 
 void	rendering_3d(t_cub *cub, int i,
@@ -136,7 +135,7 @@ void	generate_3d_projection(t_cub *cub)
 		correct_distance = cub->rays[i].distance
 			* cos(cub->rays[i].angle - cub->player->angle);
 		distance_proj_plane = (cub->data->window_width / 2)
-			/ tan(FOV_ANGLE / 2);
+			/ tan(cub->player->fov / 2);
 		projection_wall_height = (TILE_SIZE / correct_distance)
 			* distance_proj_plane;
 		wall_strip_height = (int)projection_wall_height;

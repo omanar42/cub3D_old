@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 19:11:08 by omanar            #+#    #+#             */
-/*   Updated: 2022/10/11 23:33:12 by omanar           ###   ########.fr       */
+/*   Updated: 2022/10/12 00:32:43 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,6 @@
 # include <string.h>
 # include <get_next_line.h>
 
-# define TRUE 1
-# define FALSE 0
-
 # define ESC_KEY 53
 # define A_KEY 0
 # define D_KEY 2
@@ -37,13 +34,9 @@
 # define UP_KEY 126
 # define DOWN_KEY 125
 
-# define TWO_PI 6.28318530718
-
+# define TRUE 1
+# define FALSE 0
 # define TILE_SIZE 64
-
-# define FOV_ANGLE (60 * (M_PI / 180))
-
-# define NUM_RAYS WINDOW_WIDTH
 
 enum {
 	TOKEN_NO,
@@ -68,6 +61,7 @@ typedef struct s_player {
 	float	x;
 	float	y;
 	float	angle;
+	float	fov;
 	int		turndir;
 	int		walkdir;
 	int		movedir;
@@ -97,7 +91,6 @@ typedef struct s_mlxdata {
 	void	*we_img;
 	void	*ea_img;
 }	t_mlxdata;
-
 
 typedef struct s_data {
 	char	*no;
@@ -138,6 +131,9 @@ int		check_name(char *name);
 int		argslen(char **args);
 void	free_loop(char **args);
 char	**advanced_add(char **strs, char *arg);
+void	if_something_missing(t_cub *cub);
+void	add_player(t_cub *cub, char **map, int y, int x);
+void	check_border(t_cub *cub, char **map);
 
 // --------------------------  INITIALIZING  ------------------------- //
 void	init_data(t_cub *cub);
@@ -151,8 +147,7 @@ void	set_cub(t_cub *cub);
 void	display_cub(t_cub *cub);
 
 // ---------------------------  RENDERING  --------------------------- //
-void	render_line(t_cub *cub, int beginx, int beginy,
-			int endx, int endy, int color);
+void	render_line(t_cub *cub, int endx, int endy, int color);
 void	set_all_rays(t_cub *cub);
 void	cast_ray(t_cub *cub, float ray_angle, int ray);
 void	set_map(t_cub *cub);
@@ -175,6 +170,7 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
 int		is_onempty(t_cub *cub, float x, float y, float dx, float dy);
 int		is_his_vertical(float ray_angle);
 float	get_distance(t_cub *cub, float ray_angle);
+int		player_can_move(t_cub *cub, int endx, int endy);
 
 // -----------------------------  EXITS  ----------------------------- //
 void	exit_str(char *str);

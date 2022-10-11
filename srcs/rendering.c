@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 20:19:53 by omanar            #+#    #+#             */
-/*   Updated: 2022/10/11 23:39:23 by omanar           ###   ########.fr       */
+/*   Updated: 2022/10/12 00:29:27 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,7 @@ void	cast_ray(t_cub *cub, float ray_angle, int ray)
 	if (cub->rays[ray].distance == 0)
 		cub->rays[ray].distance = 0.0001;
 	cub->rays[ray].was_hit_vertical = is_his_vertical(ray_angle);
-	render_line(cub, cub->player->x, cub->player->y,
-		cub->player->x + cos(ray_angle) * 1500,
+	render_line(cub, cub->player->x + cos(ray_angle) * 1500,
 		cub->player->y + sin(ray_angle) * 1500, 0xF2EFDC);
 }
 
@@ -29,12 +28,12 @@ void	set_all_rays(t_cub *cub)
 	int		i;
 	float	ray_angle;
 
-	ray_angle = cub->player->angle - (FOV_ANGLE / 2);
+	ray_angle = cub->player->angle - (cub->player->fov / 2);
 	i = -1;
 	while (++i < cub->data->window_width)
 	{
 		cast_ray(cub, ray_angle, i);
-		ray_angle += FOV_ANGLE / cub->data->window_width;
+		ray_angle += cub->player->fov / cub->data->window_width;
 	}
 }
 
@@ -66,9 +65,8 @@ void	set_map(t_cub *cub)
 void	set_player(t_cub *cub)
 {
 	my_mlx_pixel_put(cub->img, cub->player->x
-		* 0.2, cub->player->y * 0.2, 0x00203FFF);
-	render_line(cub, cub->player->x, cub->player->y,
-		cub->player->x + cos(cub->player->angle) * 180,
+		* 0.17, cub->player->y * 0.17, 0x00203FFF);
+	render_line(cub, cub->player->x + cos(cub->player->angle) * 180,
 		cub->player->y + sin(cub->player->angle) * 180, 0x00203FFF);
 }
 
@@ -78,5 +76,7 @@ void	render_cub(t_cub *cub)
 	mlx_put_image_to_window(cub->mlxdata->mlx,
 		cub->mlxdata->win, cub->cub->img, 0, 0);
 	mlx_put_image_to_window(cub->mlxdata->mlx,
-		cub->mlxdata->win, cub->img->img, 0, 0);
+		cub->mlxdata->win, cub->img->img,
+		cub->data->window_width - (cub->data->window_width * 0.17) - 10,
+		10);
 }
