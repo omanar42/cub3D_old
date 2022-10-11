@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 20:19:53 by omanar            #+#    #+#             */
-/*   Updated: 2022/10/11 16:27:56 by omanar           ###   ########.fr       */
+/*   Updated: 2022/10/11 22:11:08 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ void	set_all_rays(t_cub *cub)
 
 	ray_angle = cub->player->angle - (FOV_ANGLE / 2);
 	i = -1;
-	while (++i < WINDOW_WIDTH)
+	while (++i < cub->data->window_width)
 	{
 		cast_ray(cub, ray_angle, i);
-		ray_angle += FOV_ANGLE / WINDOW_WIDTH;
+		ray_angle += FOV_ANGLE / cub->data->window_width;
 	}
 }
 
@@ -46,15 +46,17 @@ void	set_map(t_cub *cub)
 	int		tiley;
 
 	j = -1;
-	while (++j < MAP_NUM_ROWS)
+	while (cub->data->map[++j])
 	{
 		i = -1;
-		while (++i < MAP_NUM_COLS)
+		while (cub->data->map[j][++i])
 		{
 			tilex = i * TILE_SIZE;
 			tiley = j * TILE_SIZE;
-			if (map[j][i] == 1)
+			if (cub->data->map[j][i] == '1')
 				my_pixel_put(cub->img, tilex, tiley, 0xDFCD8B);
+			else if (cub->data->map[j][i] == ' ')
+				my_pixel_put(cub->img, tilex, tiley, 0x000000);
 			else
 				my_pixel_put(cub->img, tilex, tiley, 0xB1B3B2);
 		}
@@ -72,9 +74,9 @@ void	set_player(t_cub *cub)
 
 void	render_cub(t_cub *cub)
 {
-	mlx_clear_window(cub->mlx, cub->win);
-	mlx_put_image_to_window(cub->mlx,
-		cub->win, cub->cub->img, 0, 0);
-	mlx_put_image_to_window(cub->mlx,
-		cub->win, cub->img->img, 0, 0);
+	mlx_clear_window(cub->mlxdata->mlx, cub->mlxdata->win);
+	mlx_put_image_to_window(cub->mlxdata->mlx,
+		cub->mlxdata->win, cub->cub->img, 0, 0);
+	mlx_put_image_to_window(cub->mlxdata->mlx,
+		cub->mlxdata->win, cub->img->img, 0, 0);
 }

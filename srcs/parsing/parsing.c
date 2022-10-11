@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 18:33:21 by omanar            #+#    #+#             */
-/*   Updated: 2022/10/11 19:23:28 by omanar           ###   ########.fr       */
+/*   Updated: 2022/10/11 22:13:14 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,13 +56,4 @@ void	parsing(t_cub *cub, char *str)
 		exit_strerr(str, errno);
 	initialize(cub);
 	file_parsing(cub, fd);
-	// printf("SO = (%s)\nNO = (%s)\nWE = (%s)\nEA = (%s)\n", cub->data->so, cub->data->no, cub->data->we, cub->data->ea);
-	// printf("Floor = (%d)\ncelling = (%d)\n", cub->data->floor, cub->data->ceiling);
-
-	// int i = 0;
-	// while (cub->data->map[i])
-	// {
-	// 	printf("%s\n", cub->data->map[i]);
-	// 	i++;
-	// }
 }

@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:02:57 by omanar            #+#    #+#             */
-/*   Updated: 2022/10/09 13:55:48 by omanar           ###   ########.fr       */
+/*   Updated: 2022/10/11 22:15:19 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,19 @@
 
 void	set_hooks(t_cub *cub)
 {
-	mlx_hook(cub->win, 2, 0, key_press, cub);
-	mlx_hook(cub->win, 3, 0, key_release, cub);
-	mlx_hook(cub->win, 17, 0, distroy_event, cub);
+	mlx_hook(cub->mlxdata->win, 2, 0, key_press, cub);
+	mlx_hook(cub->mlxdata->win, 3, 0, key_release, cub);
+	mlx_hook(cub->mlxdata->win, 17, 0, distroy_event, cub);
 	// mlx_loop_hook(cub->mlx, loop_hook, cub);
 }
 
 void	set_cub(t_cub *cub)
 {
-	cub->img->img = mlx_new_image(cub->mlx, WINDOW_WIDTH
-			* 0.25, WINDOW_HEIGHT * 0.25);
+	cub->img->img = mlx_new_image(cub->mlxdata->mlx, cub->data->window_width
+			* 0.25, cub->data->window_height * 0.25);
 	cub->img->addr = mlx_get_data_addr(cub->img->img, &cub->img->bits_per_pixel,
 			&cub->img->line_length, &cub->img->endian);
-	cub->cub->img = mlx_new_image(cub->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
+	cub->cub->img = mlx_new_image(cub->mlxdata->mlx, cub->data->window_width, cub->data->window_height);
 	cub->cub->addr = mlx_get_data_addr(cub->cub->img, &cub->cub->bits_per_pixel,
 			&cub->cub->line_length, &cub->cub->endian);
 }
@@ -37,12 +37,12 @@ void	clear_color_buffer(t_cub *cub)
 	int	y;
 
 	x = 0;
-	while (x < WINDOW_WIDTH)
+	while (x < cub->data->window_width)
 	{
 		y = 0;
-		while (y < WINDOW_HEIGHT)
+		while (y < cub->data->window_height)
 		{
-			if (y >= WINDOW_HEIGHT / 2)
+			if (y >= cub->data->window_height / 2)
 				my_mlx_pixel_put(cub->cub, x, y, 0xB1B3B2);
 			else
 				my_mlx_pixel_put(cub->cub, x, y, 0x67C1CA);

@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 19:11:08 by omanar            #+#    #+#             */
-/*   Updated: 2022/10/11 16:54:40 by omanar           ###   ########.fr       */
+/*   Updated: 2022/10/11 21:51:49 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,22 +50,6 @@
 # define FOV_ANGLE (60 * (PI / 180))
 
 # define NUM_RAYS WINDOW_WIDTH
-
-static const int	map[MAP_NUM_ROWS][MAP_NUM_COLS] = {
-{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-{1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1},
-{1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1},
-{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1},
-{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1},
-{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1},
-{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
-};
 
 enum {
 	TOKEN_NO,
@@ -111,6 +95,16 @@ typedef struct s_ray
 	int		wall_hit_content;
 }	t_ray;
 
+typedef struct s_mlxdata {
+	void	*mlx;
+	void	*win;
+	void	*no_img;
+	void	*so_img;
+	void	*we_img;
+	void	*ea_img;
+}	t_mlxdata;
+
+
 typedef struct s_data {
 	char	*no;
 	char	*so;
@@ -120,17 +114,18 @@ typedef struct s_data {
 	int		ceiling;
 	int		width;
 	int		height;
+	int		window_width;
+	int		window_height;
 	char	**map;
 }	t_data;
 
 typedef struct s_cub {
-	void		*mlx;
-	void		*win;
 	t_img		*img;
 	t_img		*cub;
 	t_ray		*rays;
 	t_data		*data;
 	t_player	*player;
+	t_mlxdata	*mlxdata;
 }	t_cub;
 
 // ----------------------------  PARSING  ---------------------------- //
@@ -151,6 +146,7 @@ void	free_loop(char **args);
 char	**advanced_add(char **strs, char *arg);
 
 // --------------------------  INITIALIZING  ------------------------- //
+void	init_data(t_cub *cub);
 void	initialize(t_cub *cub);
 void	player_config(t_cub *cub);
 
@@ -182,7 +178,7 @@ int		distroy_event(int keycode, t_cub *cub);
 // -----------------------------  UTILS ------------------------------ //
 void	my_pixel_put(t_img *img, int x, int y, int color);
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
-int		is_onempty(float x, float y, float dx, float dy);
+int		is_onempty(t_cub *cub, float x, float y, float dx, float dy);
 int		is_his_vertical(float ray_angle);
 float	get_distance(t_cub *cub, float ray_angle);
 
