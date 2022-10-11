@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 16:35:38 by omanar            #+#    #+#             */
-/*   Updated: 2022/10/11 16:36:52 by omanar           ###   ########.fr       */
+/*   Updated: 2022/10/11 22:37:21 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ int	is_map(char *line)
 	int	i;
 
 	i = 0;
-	skipe_spaces(line, &i);
 	while (line[i])
 	{
 		if (line[i] != '1' && line[i] != '0' && line[i] != '2'

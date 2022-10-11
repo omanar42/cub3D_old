@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:25:54 by omanar            #+#    #+#             */
-/*   Updated: 2022/10/11 22:13:58 by omanar           ###   ########.fr       */
+/*   Updated: 2022/10/11 23:39:27 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	render_line(t_cub *cub, int beginx, int beginy,
 	pixely = beginy;
 	while (pixels && is_onempty(cub, pixelx, pixely, deltax, deltay))
 	{
-		my_mlx_pixel_put(cub->img, pixelx * 0.25, pixely * 0.25, color);
+		my_mlx_pixel_put(cub->img, pixelx * 0.2, pixely * 0.2, color);
 		pixelx += deltax;
 		pixely += deltay;
 		--pixels;
@@ -76,8 +76,8 @@ void	next_display(t_cub *cub)
 	move_step = cub->player->movedir * cub->player->walkspeed;
 	if (cub->player->movedir != 0)
 	{
-		new_px = cub->player->x + cos(cub->player->angle + PI / 2) * move_step;
-		new_py = cub->player->y + sin(cub->player->angle + PI / 2) * move_step;
+		new_px = cub->player->x + cos(cub->player->angle + M_PI / 2) * move_step;
+		new_py = cub->player->y + sin(cub->player->angle + M_PI / 2) * move_step;
 	}
 	else
 	{

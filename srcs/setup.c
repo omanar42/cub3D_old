@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:02:57 by omanar            #+#    #+#             */
-/*   Updated: 2022/10/11 22:15:19 by omanar           ###   ########.fr       */
+/*   Updated: 2022/10/11 23:39:31 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	set_hooks(t_cub *cub)
 void	set_cub(t_cub *cub)
 {
 	cub->img->img = mlx_new_image(cub->mlxdata->mlx, cub->data->window_width
-			* 0.25, cub->data->window_height * 0.25);
+			* 0.2, cub->data->window_height * 0.2);
 	cub->img->addr = mlx_get_data_addr(cub->img->img, &cub->img->bits_per_pixel,
 			&cub->img->line_length, &cub->img->endian);
 	cub->cub->img = mlx_new_image(cub->mlxdata->mlx, cub->data->window_width, cub->data->window_height);
@@ -64,7 +64,6 @@ void	display_cub(t_cub *cub)
 
 void	setup(t_cub *cub)
 {
-	player_config(cub);
 	set_hooks(cub);
 	set_cub(cub);
 	display_cub(cub);

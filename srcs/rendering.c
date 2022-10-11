@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 20:19:53 by omanar            #+#    #+#             */
-/*   Updated: 2022/10/11 22:11:08 by omanar           ###   ########.fr       */
+/*   Updated: 2022/10/11 23:39:23 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	set_map(t_cub *cub)
 void	set_player(t_cub *cub)
 {
 	my_mlx_pixel_put(cub->img, cub->player->x
-		* 0.25, cub->player->y * 0.25, 0x00203FFF);
+		* 0.2, cub->player->y * 0.2, 0x00203FFF);
 	render_line(cub, cub->player->x, cub->player->y,
 		cub->player->x + cos(cub->player->angle) * 180,
 		cub->player->y + sin(cub->player->angle) * 180, 0x00203FFF);

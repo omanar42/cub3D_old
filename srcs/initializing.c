@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 20:23:10 by omanar            #+#    #+#             */
-/*   Updated: 2022/10/11 21:58:49 by omanar           ###   ########.fr       */
+/*   Updated: 2022/10/11 23:37:48 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	initialize(t_cub *cub)
 		|| !cub->player || !cub->data->map || !cub->mlxdata)
 		exit_strerr("malloc", errno);
 	init_data(cub);
+	player_config(cub);
 }
 
 void	init_data(t_cub *cub)
@@ -43,12 +44,12 @@ void	init_data(t_cub *cub)
 
 void	player_config(t_cub *cub)
 {
-	cub->player->x = 200;
-	cub->player->y = 350;
-	cub->player->angle = PI / 2;
+	cub->player->x = -1;
+	cub->player->y = -1;
+	cub->player->angle = 0;
 	cub->player->turndir = 0;
 	cub->player->walkdir = 0;
 	cub->player->movedir = 0;
-	cub->player->turnspeed = 5 * (PI / 180);
+	cub->player->turnspeed = 5 * (M_PI / 180);
 	cub->player->walkspeed = 10;
 }

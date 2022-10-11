@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 19:11:08 by omanar            #+#    #+#             */
-/*   Updated: 2022/10/11 21:51:49 by omanar           ###   ########.fr       */
+/*   Updated: 2022/10/11 23:33:12 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,17 +37,11 @@
 # define UP_KEY 126
 # define DOWN_KEY 125
 
-# define PI 3.14159265359
 # define TWO_PI 6.28318530718
 
 # define TILE_SIZE 64
-# define MAP_NUM_ROWS 13
-# define MAP_NUM_COLS 20
 
-# define WINDOW_WIDTH (MAP_NUM_COLS * TILE_SIZE)
-# define WINDOW_HEIGHT (MAP_NUM_ROWS * TILE_SIZE)
-
-# define FOV_ANGLE (60 * (PI / 180))
+# define FOV_ANGLE (60 * (M_PI / 180))
 
 # define NUM_RAYS WINDOW_WIDTH
 

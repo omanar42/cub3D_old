@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 16:35:01 by omanar            #+#    #+#             */
-/*   Updated: 2022/10/11 19:23:38 by omanar           ###   ########.fr       */
+/*   Updated: 2022/10/11 22:38:01 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,12 +100,12 @@ int	line_parsing(t_cub *cub, char *line)
 	char	*name;
 
 	i = 0;
+	if (is_map(line))
+		return (1);
 	skipe_spaces(line, &i);
 	j = i;
 	while (line[i] && line[i] != ' ' && line[i] != '\t')
 		i++;
-	if (is_map(line))
-		return (1);
 	name = ft_substr(line, j, i - j);
 	token = check_name(name);
 	if (token == TOKEN_ERROR)

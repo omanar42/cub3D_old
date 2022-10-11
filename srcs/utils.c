@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 20:25:28 by omanar            #+#    #+#             */
-/*   Updated: 2022/10/11 21:58:01 by omanar           ###   ########.fr       */
+/*   Updated: 2022/10/11 23:39:36 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	my_pixel_put(t_img *img, int x, int y, int color)
 		j = 0;
 		while (j < TILE_SIZE)
 		{
-			my_mlx_pixel_put(img, (x + i) * 0.25, (y + j) * 0.25, color);
+			my_mlx_pixel_put(img, (x + i) * 0.2, (y + j) * 0.2, color);
 			j++;
 		}
 		i++;
