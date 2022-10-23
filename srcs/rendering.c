@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 20:19:53 by omanar            #+#    #+#             */
-/*   Updated: 2022/10/12 00:29:27 by omanar           ###   ########.fr       */
+/*   Updated: 2022/10/23 01:41:48 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,9 @@
 void	cast_ray(t_cub *cub, float ray_angle, int ray)
 {
 	cub->rays[ray].angle = ray_angle;
-	cub->rays[ray].distance = get_distance(cub, ray_angle);
+	get_info(cub, ray_angle, ray);
 	if (cub->rays[ray].distance == 0)
 		cub->rays[ray].distance = 0.0001;
-	cub->rays[ray].was_hit_vertical = is_his_vertical(ray_angle);
 	render_line(cub, cub->player->x + cos(ray_angle) * 1500,
 		cub->player->y + sin(ray_angle) * 1500, 0xF2EFDC);
 }

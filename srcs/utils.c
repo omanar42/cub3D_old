@@ -6,40 +6,37 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 20:25:28 by omanar            #+#    #+#             */
-/*   Updated: 2022/10/11 23:45:46 by omanar           ###   ########.fr       */
+/*   Updated: 2022/10/23 01:40:25 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3D.h>
 
-int	is_his_vertical(float ray_angle)
+int	get_direction(t_cub *cub, float x, float y, int ray)
 {
-	(void)ray_angle;
-	return (1);
+	// printf("x = %d, y = %d\n", (int)(x + 1), (int)(y + 1));
+	static int i = 0;
+
+		if (!cub->rays[ray].was_hit_vertical)
+		{
+			if (cub->data->map[(int)((y - 1) / 64)][(int)(x / 64)] == '0')
+				return (DIR_SO);
+			if (cub->data->map[(int)((y + 1) / 64)][(int)(x / 64)] == '0')
+				return (DIR_NO);
+			i = 0;
+		}
+		else 
+		{
+			if (cub->data->map[(int)(y / 64)][(int)((x - 1) / 64)] == '0')
+				return (DIR_EA);
+			if (cub->data->map[(int)(y / 64)][(int)((x + 1) / 64)] == '0')
+				return (DIR_WE);
+			i++;
+		}
+	return (DIR_WE);
 }
 
-int	is_onempty(t_cub *cub, float x, float y, float dx, float dy)
-{
-	int	map_grid_index_x;
-	int	map_grid_index_y;
-	int	map_grid_index_dx;
-	int	map_grid_index_dy;
-
-	if (x < 0 || x > (cub->data->window_width)
-		|| y < 0 || y > (cub->data->window_height))
-		return (FALSE);
-	map_grid_index_x = floor(x / TILE_SIZE);
-	map_grid_index_y = floor(y / TILE_SIZE);
-	map_grid_index_dx = floor((x + dx) / TILE_SIZE);
-	map_grid_index_dy = floor((y + dy) / TILE_SIZE);
-	if (cub->data->map[map_grid_index_y][map_grid_index_x] == '0'
-		&& cub->data->map[map_grid_index_y][map_grid_index_dx] == '0'
-		&& cub->data->map[map_grid_index_dy][map_grid_index_x] == '0')
-		return (TRUE);
-	return (FALSE);
-}
-
-float	get_distance(t_cub *cub, float ray_angle)
+void	get_info(t_cub *cub, float ray_angle, int ray)
 {
 	int		pixels;
 	double	pixelx;
@@ -54,14 +51,23 @@ float	get_distance(t_cub *cub, float ray_angle)
 	deltay /= pixels;
 	pixelx = cub->player->x;
 	pixely = cub->player->y;
-	while (pixels && is_onempty(cub, pixelx, pixely, deltax, deltay))
+	while (pixels)
 	{
+		if (cub->data->map[(int)(pixely / TILE_SIZE)][(int)((pixelx + deltax) / TILE_SIZE)] != '0') {
+			cub->rays[ray].was_hit_vertical = 1;
+			break ;
+		}
+		else if (cub->data->map[(int)((pixely + deltay) / TILE_SIZE)][(int)(pixelx / TILE_SIZE)] != '0') {
+			cub->rays[ray].was_hit_vertical = 0;
+			break ;
+		}
 		pixelx += deltax;
 		pixely += deltay;
 		--pixels;
 	}
-	return (sqrt(pow(pixelx - cub->player->x, 2)
-			+ pow(pixely - cub->player->y, 2)));
+	cub->rays[ray].distance = sqrt(pow(pixelx - cub->player->x, 2)
+			+ pow(pixely - cub->player->y, 2));
+	cub->rays[ray].direction = get_direction(cub, pixelx, pixely, ray);
 }
 
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
@@ -83,7 +89,8 @@ void	my_pixel_put(t_img *img, int x, int y, int color)
 		j = 0;
 		while (j < TILE_SIZE)
 		{
-			my_mlx_pixel_put(img, (x + i) * 0.17, (y + j) * 0.17, color);
+			if ((x + i) * 0.17 < img->width && (y + j) * 0.17 < img->height)
+				my_mlx_pixel_put(img, (x + i) * 0.17, (y + j) * 0.17, color);
 			j++;
 		}
 		i++;

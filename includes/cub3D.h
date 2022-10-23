@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 19:11:08 by omanar            #+#    #+#             */
-/*   Updated: 2022/10/12 00:32:43 by omanar           ###   ########.fr       */
+/*   Updated: 2022/10/23 01:41:29 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,13 @@
 # define TILE_SIZE 64
 
 enum {
+	DIR_NO,
+	DIR_SO,
+	DIR_WE,
+	DIR_EA,
+}	e_dir;
+
+enum {
 	TOKEN_NO,
 	TOKEN_SO,
 	TOKEN_WE,
@@ -55,6 +62,8 @@ typedef struct s_img {
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
+	int		width;
+	int		height;
 }	t_img;
 
 typedef struct s_player {
@@ -75,6 +84,7 @@ typedef struct s_ray
 	float	wall_hit_x;
 	float	wall_hit_y;
 	float	distance;
+	int		direction;
 	int		was_hit_vertical;
 	int		is_ray_facing_up;
 	int		is_ray_facing_down;
@@ -167,9 +177,8 @@ int		distroy_event(int keycode, t_cub *cub);
 // -----------------------------  UTILS ------------------------------ //
 void	my_pixel_put(t_img *img, int x, int y, int color);
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
-int		is_onempty(t_cub *cub, float x, float y, float dx, float dy);
-int		is_his_vertical(float ray_angle);
-float	get_distance(t_cub *cub, float ray_angle);
+int		is_his_vertical(t_cub *cub, float ray_angle, int ray);
+void	get_info(t_cub *cub, float ray_angle, int ray);
 int		player_can_move(t_cub *cub, int endx, int endy);
 
 // -----------------------------  EXITS  ----------------------------- //

@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:25:54 by omanar            #+#    #+#             */
-/*   Updated: 2022/10/12 00:31:50 by omanar           ###   ########.fr       */
+/*   Updated: 2022/10/23 01:45:32 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,12 @@ void	render_line(t_cub *cub, int endx, int endy, int color)
 	deltay /= pixels;
 	pixelx = cub->player->x;
 	pixely = cub->player->y;
-	while (pixels && is_onempty(cub, pixelx, pixely, deltax, deltay))
+	while (pixels)
 	{
+		if (cub->data->map[(int)(pixely / TILE_SIZE)][(int)(pixelx / TILE_SIZE)] != '0'
+			|| cub->data->map[(int)(pixely / TILE_SIZE)][(int)((pixelx + deltax) / TILE_SIZE)] != '0'
+			|| cub->data->map[(int)((pixely + deltay) / TILE_SIZE)][(int)(pixelx / TILE_SIZE)] != '0')
+			break ;
 		my_mlx_pixel_put(cub->img, pixelx * 0.17, pixely * 0.17, color);
 		pixelx += deltax;
 		pixely += deltay;
@@ -51,8 +55,12 @@ int	player_can_move(t_cub *cub, int endx, int endy)
 	deltay /= pixels;
 	pixelx = cub->player->x;
 	pixely = cub->player->y;
-	while (pixels && is_onempty(cub, pixelx, pixely, deltax, deltay))
+	while (pixels)
 	{
+		if (cub->data->map[(int)(pixely / TILE_SIZE)][(int)(pixelx / TILE_SIZE)] != '0'
+			|| cub->data->map[(int)(pixely / TILE_SIZE)][(int)((pixelx + deltax) / TILE_SIZE)] != '0'
+			|| cub->data->map[(int)((pixely + deltay) / TILE_SIZE)][(int)(pixelx / TILE_SIZE)] != '0')
+			break ;
 		pixelx += deltax;
 		pixely += deltay;
 		--pixels;
@@ -111,8 +119,14 @@ void	rendering_3d(t_cub *cub, int i,
 	j = wall_top_pixel;
 	while (j < wall_bottom_pixel)
 	{
-		if (cub->rays[i].was_hit_vertical)
-			my_mlx_pixel_put(cub->cub, i, j++, 0xDFCD8B);
+		if (cub->rays[i].direction == DIR_SO)
+			my_mlx_pixel_put(cub->cub, i, j++, 0x05F2DB);
+		else if (cub->rays[i].direction == DIR_NO)
+			my_mlx_pixel_put(cub->cub, i, j++, 0x85A0F2);
+		else if (cub->rays[i].direction == DIR_EA)
+			my_mlx_pixel_put(cub->cub, i, j++, 0x9080F2);
+		else if (cub->rays[i].direction == DIR_WE)
+			my_mlx_pixel_put(cub->cub, i, j++, 0x302A59);
 		else
 			my_mlx_pixel_put(cub->cub, i, j++, 0xFFFFFF);
 	}

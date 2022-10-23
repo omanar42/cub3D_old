@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:02:57 by omanar            #+#    #+#             */
-/*   Updated: 2022/10/12 00:27:03 by omanar           ###   ########.fr       */
+/*   Updated: 2022/10/23 01:41:18 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,14 @@ void	set_cub(t_cub *cub)
 			* 0.17, cub->data->window_height * 0.17);
 	cub->img->addr = mlx_get_data_addr(cub->img->img, &cub->img->bits_per_pixel,
 			&cub->img->line_length, &cub->img->endian);
+	cub->img->width = cub->data->window_width * 0.17;
+	cub->img->height = cub->data->window_height * 0.17;
 	cub->cub->img = mlx_new_image(cub->mlxdata->mlx,
 			cub->data->window_width, cub->data->window_height);
 	cub->cub->addr = mlx_get_data_addr(cub->cub->img, &cub->cub->bits_per_pixel,
 			&cub->cub->line_length, &cub->cub->endian);
+	cub->cub->width = cub->data->window_width;
+	cub->cub->height = cub->data->window_height;
 }
 
 void	display_cub(t_cub *cub)
