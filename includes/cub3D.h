@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 19:11:08 by omanar            #+#    #+#             */
-/*   Updated: 2022/10/23 01:41:29 by omanar           ###   ########.fr       */
+/*   Updated: 2022/10/30 01:27:39 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,8 @@ typedef struct s_ray
 	float	wall_hit_x;
 	float	wall_hit_y;
 	float	distance;
+	float	x;
+	float	y;
 	int		direction;
 	int		was_hit_vertical;
 	int		is_ray_facing_up;
@@ -101,6 +103,15 @@ typedef struct s_mlxdata {
 	void	*we_img;
 	void	*ea_img;
 }	t_mlxdata;
+
+typedef struct s_assets {
+	int		width;
+	int		height;
+	t_img	*no;
+	t_img	*so;
+	t_img	*we;
+	t_img	*ea;
+}	t_assets;
 
 typedef struct s_data {
 	char	*no;
@@ -121,6 +132,7 @@ typedef struct s_cub {
 	t_img		*cub;
 	t_ray		*rays;
 	t_data		*data;
+	t_assets	*assets;
 	t_player	*player;
 	t_mlxdata	*mlxdata;
 }	t_cub;

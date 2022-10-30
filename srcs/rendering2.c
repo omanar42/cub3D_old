@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:25:54 by omanar            #+#    #+#             */
-/*   Updated: 2022/10/23 01:45:32 by omanar           ###   ########.fr       */
+/*   Updated: 2022/10/30 01:30:07 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,12 +99,33 @@ void	next_display(t_cub *cub)
 	}
 }
 
+unsigned int get_pixel(t_img *img, int x, int y, int wall_strip_height)
+{
+	char *dst;
+	if (y < 0)
+		y = 0;
+	if (y >= wall_strip_height)
+		y = wall_strip_height - 1;
+	dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
+	return (*(unsigned int *)dst);	
+}
+
+int	get_color_image(t_img *img, int x, int y)
+{
+	char	*dst;
+
+	dst = img->addr + (y * img->line_length + x \
+		* (img->bits_per_pixel / 8));
+	return (*(int *)dst);
+}
+
 void	rendering_3d(t_cub *cub, int i,
 	int wall_strip_height)
 {
 	int	j;
 	int	wall_top_pixel;
 	int	wall_bottom_pixel;
+	float flag;
 
 	j = 0;
 	wall_top_pixel = (cub->data->window_height / 2) - (wall_strip_height / 2);
@@ -119,16 +140,25 @@ void	rendering_3d(t_cub *cub, int i,
 	j = wall_top_pixel;
 	while (j < wall_bottom_pixel)
 	{
+		if (cub->rays[i].direction == DIR_NO || cub->rays[i].direction == DIR_SO)
+			flag = fmod(cub->rays[i].x / 64, 1);
+		else if (cub->rays[i].direction == DIR_WE || cub->rays[i].direction == DIR_EA)
+			flag = fmod(cub->rays[i].y / 64, 1);
+		flag *= 64;
 		if (cub->rays[i].direction == DIR_SO)
-			my_mlx_pixel_put(cub->cub, i, j++, 0x05F2DB);
+		
+			my_mlx_pixel_put(cub->cub, i, j, get_color_image(cub->assets->so, flag, \
+				(((j - ((cub->data->window_height - wall_strip_height) / 2)) * 64) / wall_strip_height)));
 		else if (cub->rays[i].direction == DIR_NO)
-			my_mlx_pixel_put(cub->cub, i, j++, 0x85A0F2);
-		else if (cub->rays[i].direction == DIR_EA)
-			my_mlx_pixel_put(cub->cub, i, j++, 0x9080F2);
+			my_mlx_pixel_put(cub->cub, i, j, get_color_image(cub->assets->no, flag, \
+				(((j - ((cub->data->window_height - wall_strip_height) / 2)) * 64) / wall_strip_height)));
 		else if (cub->rays[i].direction == DIR_WE)
-			my_mlx_pixel_put(cub->cub, i, j++, 0x302A59);
+			my_mlx_pixel_put(cub->cub, i, j, get_color_image(cub->assets->we, flag, \
+				(((j - ((cub->data->window_height - wall_strip_height) / 2)) * 64) / wall_strip_height)));
 		else
-			my_mlx_pixel_put(cub->cub, i, j++, 0xFFFFFF);
+			my_mlx_pixel_put(cub->cub, i, j, get_color_image(cub->assets->ea, flag, \
+				(((j - ((cub->data->window_height - wall_strip_height) / 2)) * 64) / wall_strip_height)));
+		j++;
 	}
 	j = wall_bottom_pixel;
 	while (j < cub->data->window_height)

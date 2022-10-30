@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 20:25:28 by omanar            #+#    #+#             */
-/*   Updated: 2022/10/23 01:40:25 by omanar           ###   ########.fr       */
+/*   Updated: 2022/10/30 01:27:22 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ void	get_info(t_cub *cub, float ray_angle, int ray)
 		pixely += deltay;
 		--pixels;
 	}
+	cub->rays[ray].x = pixelx;
+	cub->rays[ray].y = pixely;
 	cub->rays[ray].distance = sqrt(pow(pixelx - cub->player->x, 2)
 			+ pow(pixely - cub->player->y, 2));
 	cub->rays[ray].direction = get_direction(cub, pixelx, pixely, ray);

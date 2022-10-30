@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 20:23:10 by omanar            #+#    #+#             */
-/*   Updated: 2022/10/12 00:06:45 by omanar           ###   ########.fr       */
+/*   Updated: 2022/10/24 04:25:47 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,11 @@ void	initialize(t_cub *cub)
 		exit_strerr("malloc", errno);
 	cub->img = malloc(sizeof(t_img));
 	cub->cub = malloc(sizeof(t_img));
+	cub->assets = malloc(sizeof(t_assets));
+	cub->assets->no = malloc(sizeof(t_img));
+	cub->assets->so = malloc(sizeof(t_img));
+	cub->assets->we = malloc(sizeof(t_img));
+	cub->assets->ea = malloc(sizeof(t_img));
 	cub->data = malloc(sizeof(t_data));
 	cub->player = malloc(sizeof(t_player));
 	cub->mlxdata = malloc(sizeof(t_mlxdata));

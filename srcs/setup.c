@@ -6,7 +6,7 @@
 /*   By: omanar <omanar@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:02:57 by omanar            #+#    #+#             */
-/*   Updated: 2022/10/23 01:41:18 by omanar           ###   ########.fr       */
+/*   Updated: 2022/10/24 04:24:34 by omanar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,26 @@ void	set_cub(t_cub *cub)
 			&cub->cub->line_length, &cub->cub->endian);
 	cub->cub->width = cub->data->window_width;
 	cub->cub->height = cub->data->window_height;
+	cub->assets->no->img = mlx_xpm_file_to_image(cub->mlxdata->mlx,
+			cub->data->no, &cub->assets->width, &cub->assets->height);
+	cub->assets->no->addr = mlx_get_data_addr(cub->assets->no->img,
+			&cub->assets->no->bits_per_pixel, &cub->assets->no->line_length,
+			&cub->assets->no->endian);
+	cub->assets->so->img = mlx_xpm_file_to_image(cub->mlxdata->mlx, cub->data->so,
+			&cub->assets->width, &cub->assets->height);
+	cub->assets->so->addr = mlx_get_data_addr(cub->assets->so->img,
+			&cub->assets->so->bits_per_pixel, &cub->assets->so->line_length,
+			&cub->assets->so->endian);
+	cub->assets->we->img = mlx_xpm_file_to_image(cub->mlxdata->mlx, cub->data->we,
+			&cub->assets->width, &cub->assets->height);
+	cub->assets->we->addr = mlx_get_data_addr(cub->assets->we->img,
+			&cub->assets->we->bits_per_pixel, &cub->assets->we->line_length,
+			&cub->assets->we->endian);
+	cub->assets->ea->img = mlx_xpm_file_to_image(cub->mlxdata->mlx, cub->data->ea,
+			&cub->assets->width, &cub->assets->height);
+	cub->assets->ea->addr = mlx_get_data_addr(cub->assets->ea->img,
+			&cub->assets->ea->bits_per_pixel, &cub->assets->ea->line_length,
+			&cub->assets->ea->endian);
 }
 
 void	display_cub(t_cub *cub)
